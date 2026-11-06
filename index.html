@@ -89,6 +89,10 @@
 
         .reveal { opacity: 0; transform: translateY(25px); transition: opacity .7s ease, transform .7s ease; }
         .reveal.show { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            html { scroll-behavior: auto; }
+        }
 
         .mobile-link { padding: 12px 14px; border-radius: 10px; font-size: 14px; color: #314965; transition: .2s; }
         .mobile-link:hover { background: #f7f4ed; color: #101c2c; }
@@ -127,46 +131,24 @@
         }
         .exp-link svg { width: 15px; height: 15px; }
 
-        /* Project documentation slider */
-        .doc-slider { position: relative; }
-        .doc-viewport { overflow: hidden; border-radius: 32px; background: #fbfaf7; box-shadow: 0 24px 70px rgba(11, 23, 40, .09); }
-        .doc-track { display: flex; width: 100%; will-change: transform; }
-        .doc-slide { min-width: 100%; padding: clamp(24px, 5vw, 56px); box-sizing: border-box; }
-        .doc-slide-grid {
-            display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
-            gap: clamp(28px, 5vw, 64px); align-items: center;
+        /* Project documentation — 4 foto */
+        .doc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .doc-photo {
+            position: relative; overflow: hidden; border-radius: 24px;
+            background: #e8e4da; aspect-ratio: 4 / 3;
+            box-shadow: 0 18px 50px rgba(11, 23, 40, .09);
         }
-        .doc-number { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #8f8064; font-weight: 700; }
-        .doc-type { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #94a3b8; }
-        .doc-info { min-width: 0; }
-        .doc-gallery {
-            display: grid; grid-template-columns: 1.35fr .65fr; grid-template-rows: 1fr 1fr;
-            gap: 12px; min-height: 390px;
-        }
-        .doc-photo { position: relative; overflow: hidden; border-radius: 22px; background: #e8e4da; min-height: 180px; }
-        .doc-photo:first-child { grid-row: 1 / 3; }
         .doc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
         .doc-photo:hover img { transform: scale(1.04); }
-        .doc-photo span {
-            position: absolute; left: 12px; bottom: 12px; padding: 6px 9px; border-radius: 999px;
-            background: rgba(11, 23, 40, .78); color: #fff; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+        .doc-photo figcaption {
+            position: absolute; left: 14px; bottom: 14px; padding: 7px 12px; border-radius: 999px;
+            background: rgba(11, 23, 40, .78); color: #fff; font-size: 11px; letter-spacing: .06em;
         }
-        .doc-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 22px; }
-        .doc-arrow {
-            width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(11, 23, 40, .12);
-            background: #fffdf8; color: #0b1728; display: grid; place-items: center; cursor: pointer; transition: .2s ease;
+        .doc-photo.no-img::before {
+            content: "Foto dokumentasi"; position: absolute; inset: 0; display: grid; place-items: center;
+            color: #8f8064; font-size: 13px;
         }
-        .doc-arrow:hover { background: #0b1728; color: #fff; transform: translateY(-1px); }
-        .doc-arrow svg { width: 17px; height: 17px; }
-        .doc-dots { display: flex; align-items: center; gap: 7px; }
-        .doc-dot { width: 7px; height: 7px; border: 0; border-radius: 999px; background: #d8d4cc; padding: 0; cursor: pointer; transition: .25s ease; }
-        .doc-dot.active { width: 28px; background: #d9c9a3; }
-
-        @media(max-width:900px) {
-            .doc-slide-grid { grid-template-columns: 1fr; }
-            .doc-gallery { min-height: 340px; order: 2; }
-            .doc-info { order: 1; }
-        }
+        .doc-photo.no-img img { display: none; }
 
         @media(max-width:767px) {
             #navbar nav { height: 70px; }
@@ -175,14 +157,8 @@
             .display { letter-spacing: -.025em; }
             .exp-link { width: 100%; justify-content: center; }
         }
-
-        @media(max-width:600px) {
-            .doc-slide { padding: 24px 20px; }
-            .doc-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 120px; min-height: 0; }
-            .doc-photo:first-child { grid-column: 1 / 3; grid-row: 1; }
-            .doc-photo:nth-child(2), .doc-photo:nth-child(3) { grid-row: 2; }
-            .doc-photo { min-height: 0; }
-            .doc-slide h3 { font-size: 2rem; }
+        @media(max-width:520px) {
+            .doc-grid { grid-template-columns: 1fr; }
         }
 
         /* Print / PDF */
@@ -224,6 +200,7 @@
                     <a href="#about" class="text-sm text-slate-600 hover:text-navy-950 transition">About</a>
                     <a href="#education" class="text-sm text-slate-600 hover:text-navy-950 transition">Education</a>
                     <a href="#experience" class="text-sm text-slate-600 hover:text-navy-950 transition">Experience</a>
+                    <a href="#organization" class="text-sm text-slate-600 hover:text-navy-950 transition">Organization</a>
                     <a href="#project" class="text-sm text-slate-600 hover:text-navy-950 transition">Project</a>
                     <a href="#skills" class="text-sm text-slate-600 hover:text-navy-950 transition">Skills</a>
                     <a href="#contact" class="text-sm text-slate-600 hover:text-navy-950 transition">Contact</a>
@@ -239,6 +216,7 @@
                     <a href="#about" class="mobile-link">About</a>
                     <a href="#education" class="mobile-link">Education</a>
                     <a href="#experience" class="mobile-link">Experience</a>
+                    <a href="#organization" class="mobile-link">Organization</a>
                     <a href="#project" class="mobile-link">Project</a>
                     <a href="#skills" class="mobile-link">Skills</a>
                     <a href="#contact" class="mobile-link">Contact</a>
@@ -279,7 +257,7 @@
                     <div class="flex flex-wrap items-center gap-7 mt-12 pt-7 border-t border-slate-200 max-w-xl">
                         <div>
                             <p class="text-2xl font-semibold text-navy-950">3.54</p>
-                            <p class="text-xs text-slate-500 mt-1">GPA / IPK</p>
+                            <p class="text-xs text-slate-500 mt-1">IPK</p>
                         </div>
                         <div class="w-px h-9 bg-slate-200"></div>
                         <div>
@@ -299,7 +277,8 @@
                         <div class="relative h-[520px] bg-navy-950 rounded-[220px_220px_28px_28px] overflow-hidden soft-shadow">
                             <!-- Taruh foto Anda di folder yang sama dengan nama: foto-rahmi.jpg -->
                             <img src="foto-rahmi.jpg" alt="Foto Rahmi Sefrial Dayanti"
-                                class="absolute inset-0 w-full h-full object-cover object-top">
+                                class="absolute inset-0 w-full h-full object-cover object-top"
+                                onerror="this.style.display='none'">
 
                             <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/55 to-transparent"></div>
 
@@ -414,20 +393,14 @@
                     </div>
 
                     <div class="reveal group p-7 rounded-3xl border border-slate-200 hover:border-gold-400 transition">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-                            <div class="flex gap-5">
-                                <div class="w-12 h-12 rounded-xl bg-cream-100 flex items-center justify-center shrink-0">
-                                    <i data-lucide="school" class="w-5 h-5 text-navy-800"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gold-600 font-semibold">2018 — 2021</p>
-                                    <h3 class="text-xl font-semibold text-navy-950 mt-1">SMK Negeri 3 Batam</h3>
-                                    <p class="text-slate-500 mt-1">Teknik Komputer dan Jaringan</p>
-                                </div>
+                        <div class="flex gap-5">
+                            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center shrink-0">
+                                <i data-lucide="school" class="w-5 h-5 text-navy-800"></i>
                             </div>
-                            <div class="md:text-right pl-[68px] md:pl-0">
-                                <p class="text-xs text-slate-400">Rata-rata Nilai</p>
-                                <p class="text-2xl font-semibold text-gold-600">85.04</p>
+                            <div>
+                                <p class="text-xs text-gold-600 font-semibold">2018 — 2021</p>
+                                <h3 class="text-xl font-semibold text-navy-950 mt-1">SMK Negeri 3 Batam</h3>
+                                <p class="text-slate-500 mt-1">Teknik Komputer Jaringan</p>
                             </div>
                         </div>
                     </div>
@@ -454,7 +427,7 @@
 
                 <!-- PT SEMEN PADANG -->
                 <div class="relative md:pl-16 pb-12 reveal">
-                    <div class="absolute left-0 top-2 hidden md:flex w-8 h-8 rounded-full bg-gold-500 border-4 border-cream-100 items-center justify-center">
+                    <div class="absolute left-0 top-2 hidden md:flex w-8 h-8 rounded-full bg-gold-500 border-4 border-white items-center justify-center">
                         <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
                     </div>
 
@@ -487,7 +460,7 @@
 
                 <!-- PT SUMITOMO -->
                 <div class="relative md:pl-16 reveal">
-                    <div class="absolute left-0 top-2 hidden md:flex w-8 h-8 rounded-full bg-gold-500 border-4 border-cream-100 items-center justify-center">
+                    <div class="absolute left-0 top-2 hidden md:flex w-8 h-8 rounded-full bg-gold-500 border-4 border-white items-center justify-center">
                         <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
                     </div>
 
@@ -525,7 +498,7 @@
 
 
     <!-- ORGANIZATION -->
-    <section class="py-28 bg-navy-950 text-white overflow-hidden relative">
+    <section id="organization" class="py-28 bg-navy-950 text-white overflow-hidden relative">
         <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full border border-gold-400/10"></div>
 
         <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
@@ -582,11 +555,11 @@
                     Rancang Bangun Aplikasi Pengelolaan Kegiatan Harian Sekolah
                 </h3>
                 <p class="text-sm text-slate-500 mt-1">SMP Negeri 2 Kota Solok · Tugas Akhir</p>
-                <p class="mt-4 text-slate-600 leading-7">
-                    Aplikasi web berbasis PWA untuk mendigitalkan pengelolaan kegiatan harian sekolah
-                    (absensi, piket, pelanggaran, portofolio siswa), dikembangkan dengan metode Waterfall
-                    menggunakan Laravel dan MySQL untuk frontend dan backend.
-                </p>
+
+                <div class="mt-4 space-y-2 text-slate-600 leading-7">
+                    <p>• Merancang dan mengembangkan aplikasi web berbasis PWA untuk mendigitalkan pengelolaan kegiatan harian sekolah (absensi, piket, pelanggaran, portofolio siswa) dengan metode Waterfall.</p>
+                    <p>• Menggunakan Laravel dan MySQL untuk pengembangan frontend dan backend.</p>
+                </div>
 
                 <div class="flex flex-wrap gap-2 mt-5">
                     <span class="tag">Laravel</span>
@@ -595,105 +568,36 @@
                     <span class="tag">Waterfall</span>
                 </div>
 
-                <!-- GANTI href dengan link GitHub repository Anda -->
+                <!-- GANTI href dengan link GitHub repository Anda (sama dengan link [Github] di CV) -->
                 <a href="https://github.com/USERNAME/NAMA-REPO" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 mt-6 px-5 py-3 bg-navy-950 text-white rounded-full text-sm font-semibold hover:bg-navy-800 hover:-translate-y-0.5 transition">
-                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+                    </svg>
                     Lihat di GitHub
                 </a>
             </div>
 
-            <!-- Documentation slider
-                 Taruh foto di folder "dokumentasi/" dengan nama file seperti di bawah.
-                 Ganti src / label sesuai foto Anda. -->
-            <div class="doc-slider reveal" data-doc-slider>
-                <div class="doc-viewport">
-                    <div class="doc-track">
-
-                        <!-- Slide 1 -->
-                        <article class="doc-slide">
-                            <div class="doc-slide-grid">
-                                <div class="doc-info">
-                                    <p class="doc-number">01 / 04</p>
-                                    <p class="doc-type mt-2">Dokumentasi Proyek</p>
-                                    <h3 class="display text-3xl md:text-4xl text-navy-950 mt-4 font-semibold">Absensi Siswa</h3>
-                                    <p class="text-slate-600 leading-7 mt-4">
-                                        Dokumentasi tampilan dan penggunaan fitur absensi pada aplikasi pengelolaan kegiatan harian sekolah.
-                                    </p>
-                                </div>
-                                <div class="doc-gallery">
-                                    <figure class="doc-photo"><img src="dokumentasi/absensi-1.jpg" alt="Dokumentasi absensi 1" loading="lazy"><span>Tampilan</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/absensi-2.jpg" alt="Dokumentasi absensi 2" loading="lazy"><span>Fitur</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/absensi-3.jpg" alt="Dokumentasi absensi 3" loading="lazy"><span>Uji coba</span></figure>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Slide 2 -->
-                        <article class="doc-slide">
-                            <div class="doc-slide-grid">
-                                <div class="doc-info">
-                                    <p class="doc-number">02 / 04</p>
-                                    <p class="doc-type mt-2">Dokumentasi Proyek</p>
-                                    <h3 class="display text-3xl md:text-4xl text-navy-950 mt-4 font-semibold">Piket Harian</h3>
-                                    <p class="text-slate-600 leading-7 mt-4">
-                                        Dokumentasi tampilan dan penggunaan fitur piket pada aplikasi.
-                                    </p>
-                                </div>
-                                <div class="doc-gallery">
-                                    <figure class="doc-photo"><img src="dokumentasi/piket-1.jpg" alt="Dokumentasi piket 1" loading="lazy"><span>Tampilan</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/piket-2.jpg" alt="Dokumentasi piket 2" loading="lazy"><span>Fitur</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/piket-3.jpg" alt="Dokumentasi piket 3" loading="lazy"><span>Uji coba</span></figure>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Slide 3 -->
-                        <article class="doc-slide">
-                            <div class="doc-slide-grid">
-                                <div class="doc-info">
-                                    <p class="doc-number">03 / 04</p>
-                                    <p class="doc-type mt-2">Dokumentasi Proyek</p>
-                                    <h3 class="display text-3xl md:text-4xl text-navy-950 mt-4 font-semibold">Pelanggaran Siswa</h3>
-                                    <p class="text-slate-600 leading-7 mt-4">
-                                        Dokumentasi tampilan dan penggunaan fitur pencatatan pelanggaran siswa pada aplikasi.
-                                    </p>
-                                </div>
-                                <div class="doc-gallery">
-                                    <figure class="doc-photo"><img src="dokumentasi/pelanggaran-1.jpg" alt="Dokumentasi pelanggaran 1" loading="lazy"><span>Tampilan</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/pelanggaran-2.jpg" alt="Dokumentasi pelanggaran 2" loading="lazy"><span>Fitur</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/pelanggaran-3.jpg" alt="Dokumentasi pelanggaran 3" loading="lazy"><span>Uji coba</span></figure>
-                                </div>
-                            </div>
-                        </article>
-
-                        <!-- Slide 4 -->
-                        <article class="doc-slide">
-                            <div class="doc-slide-grid">
-                                <div class="doc-info">
-                                    <p class="doc-number">04 / 04</p>
-                                    <p class="doc-type mt-2">Dokumentasi Proyek</p>
-                                    <h3 class="display text-3xl md:text-4xl text-navy-950 mt-4 font-semibold">Portofolio Siswa</h3>
-                                    <p class="text-slate-600 leading-7 mt-4">
-                                        Dokumentasi tampilan dan penggunaan fitur portofolio siswa, serta kegiatan di sekolah.
-                                    </p>
-                                </div>
-                                <div class="doc-gallery">
-                                    <figure class="doc-photo"><img src="dokumentasi/portofolio-1.jpg" alt="Dokumentasi portofolio 1" loading="lazy"><span>Tampilan</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/portofolio-2.jpg" alt="Dokumentasi portofolio 2" loading="lazy"><span>Fitur</span></figure>
-                                    <figure class="doc-photo"><img src="dokumentasi/portofolio-3.jpg" alt="Dokumentasi di sekolah" loading="lazy"><span>Kegiatan</span></figure>
-                                </div>
-                            </div>
-                        </article>
-
-                    </div>
-                </div>
-
-                <div class="doc-controls">
-                    <button type="button" class="doc-arrow" data-doc-prev aria-label="Sebelumnya"><i data-lucide="arrow-left"></i></button>
-                    <div class="doc-dots" data-doc-dots></div>
-                    <button type="button" class="doc-arrow" data-doc-next aria-label="Berikutnya"><i data-lucide="arrow-right"></i></button>
-                </div>
+            <!-- Dokumentasi proyek (4 foto)
+                 Taruh foto di folder "dokumentasi/" dengan nama: dokumentasi-1.jpg sampai dokumentasi-4.jpg.
+                 Ubah teks di <figcaption> sesuai isi foto Anda. -->
+            <div class="doc-grid reveal">
+                <figure class="doc-photo">
+                    <img src="dokumentasi/dokumentasi-1.jpg" alt="Dokumentasi fitur absensi siswa" loading="lazy" onerror="this.parentElement.classList.add('no-img')">
+                    <figcaption>Absensi Siswa</figcaption>
+                </figure>
+                <figure class="doc-photo">
+                    <img src="dokumentasi/dokumentasi-2.jpg" alt="Dokumentasi fitur piket harian" loading="lazy" onerror="this.parentElement.classList.add('no-img')">
+                    <figcaption>Piket Harian</figcaption>
+                </figure>
+                <figure class="doc-photo">
+                    <img src="dokumentasi/dokumentasi-3.jpg" alt="Dokumentasi fitur pelanggaran siswa" loading="lazy" onerror="this.parentElement.classList.add('no-img')">
+                    <figcaption>Pelanggaran Siswa</figcaption>
+                </figure>
+                <figure class="doc-photo">
+                    <img src="dokumentasi/dokumentasi-4.jpg" alt="Dokumentasi fitur portofolio siswa" loading="lazy" onerror="this.parentElement.classList.add('no-img')">
+                    <figcaption>Portofolio Siswa</figcaption>
+                </figure>
             </div>
 
         </div>
@@ -790,16 +694,16 @@
                         <i data-lucide="sparkles" class="w-6 h-6 text-gold-400"></i>
                         <span class="text-xs text-slate-500">06</span>
                     </div>
-                    <h3 class="font-semibold text-xl mt-7">Soft Skills & Language</h3>
+                    <h3 class="font-semibold text-xl mt-7">Soft Skills & Bahasa</h3>
                     <p class="text-slate-400 text-sm leading-6 mt-2">Cara saya bekerja dan berkomunikasi.</p>
                     <div class="flex flex-wrap gap-2 mt-5">
                         <span class="tag-dark">Teliti</span>
                         <span class="tag-dark">Komunikatif</span>
                         <span class="tag-dark">Disiplin</span>
                         <span class="tag-dark">Bertanggung Jawab</span>
-                        <span class="tag-dark">Teamwork & Mandiri</span>
+                        <span class="tag-dark">Tim & Mandiri</span>
                         <span class="tag-dark">Mengikuti SOP</span>
-                        <span class="tag-dark">Adaptif</span>
+                        <span class="tag-dark">Mudah Beradaptasi</span>
                         <span class="tag-dark">Indonesia (Fasih)</span>
                         <span class="tag-dark">Inggris (Dasar)</span>
                     </div>
@@ -834,11 +738,11 @@
                     <p class="font-medium mt-1 break-all">rahmii2209@gmail.com</p>
                 </a>
 
-                <a href="tel:083861370252"
+                <a href="https://wa.me/6283861370252" target="_blank" rel="noopener noreferrer"
                     class="reveal p-6 rounded-3xl bg-white hover:bg-navy-950 hover:text-white transition text-left">
                     <i data-lucide="phone" class="w-5 h-5 text-gold-600"></i>
-                    <p class="text-xs text-slate-400 mt-6">PHONE / WHATSAPP</p>
-                    <p class="font-medium mt-1">0838-6137-0252</p>
+                    <p class="text-xs text-slate-400 mt-6">NO. HP / WHATSAPP</p>
+                    <p class="font-medium mt-1">083861370252</p>
                 </a>
 
                 <a href="https://www.linkedin.com/in/rahmi-sefrial-dayanti-a93b7821a" target="_blank" rel="noopener noreferrer"
@@ -847,14 +751,14 @@
                         <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.68H9.3V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.48v6.27ZM5.28 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM3.5 20.45h3.57V8.99H3.5v11.46Z" />
                     </svg>
                     <p class="text-xs text-slate-400 mt-6">LINKEDIN</p>
-                    <p class="font-medium mt-1">View my profile</p>
+                    <p class="font-medium mt-1">Lihat profil saya</p>
                 </a>
 
             </div>
 
             <a href="mailto:rahmii2209@gmail.com"
                 class="reveal inline-flex items-center gap-3 mt-12 px-7 py-4 bg-navy-950 text-white rounded-full font-semibold hover:bg-navy-800 hover:-translate-y-1 transition">
-                Send Me an Email
+                Kirim Email
                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
             </a>
 
@@ -867,18 +771,18 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-10 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm">© 2026 Rahmi Sefrial Dayanti</p>
-                <p class="text-xs tracking-wide">INFORMATICS · WEB · NETWORK · IT SUPPORT</p>
+                <p class="text-xs tracking-wide">INFORMATIKA · WEB · JARINGAN · IT SUPPORT</p>
             </div>
         </div>
     </footer>
 
 
-    <!-- PRINT / PDF RESUME (hanya tampil saat dicetak) -->
+    <!-- PRINT / PDF RESUME (hanya tampil saat dicetak) — urutan sama dengan CV -->
     <section id="print-cv">
         <div class="print-head">
             <div class="print-name">Rahmi Sefrial Dayanti</div>
             <div class="print-role">IT Support Trainee Candidate</div>
-            <div class="print-contact">Batam, Kepulauan Riau · rahmii2209@gmail.com · 0838-6137-0252 ·
+            <div class="print-contact">Batam, Kepulauan Riau · rahmii2209@gmail.com · 083861370252 ·
                 linkedin.com/in/rahmi-sefrial-dayanti-a93b7821a</div>
         </div>
 
@@ -893,34 +797,34 @@
         <div class="print-section">
             <h2>Pengalaman Kerja</h2>
             <h3>PT Semen Padang — Praktik Lapangan Industri · Unit Site Engineering | Februari 2025 – Agustus 2025</h3>
-            <p>Mengelola dan mengorganisasi file dokumen digital secara terstruktur; menganalisis kebutuhan server dan
-                berkontribusi dalam pengembangan website internal; menyesuaikan pekerjaan dengan prosedur unit kerja.</p>
+            <p>Mengelola dan mengorganisasi file dokumen digital secara terstruktur agar mudah dilacak dan diakses tim; menganalisis kebutuhan server dan
+                berkontribusi dalam pengembangan website internal perusahaan; menyesuaikan pekerjaan dengan prosedur dan kebutuhan unit kerja.</p>
             <h3>PT Sumitomo Wiring Systems Batam — Praktik Kerja Lapangan · General Affairs | Juli 2019 – November 2019</h3>
-            <p>Mengarsipkan dan mengompilasi dokumen; entri data dan administrasi dasar; menunjang operasional
-                administrasi; menjaga ketelitian dan kedisiplinan.</p>
+            <p>Mengarsipkan dan mengompilasi dokumen sesuai kategori; entri data dan administrasi dasar; menunjang operasional
+                administrasi sesuai kebutuhan unit kerja; menjaga ketelitian dan kedisiplinan dalam pengelolaan data dan dokumen.</p>
+        </div>
+
+        <div class="print-section">
+            <h2>Pengalaman Organisasi</h2>
+            <h3>Himpunan Mahasiswa Departemen Teknik Elektronika | Maret 2023 – Desember 2023</h3>
+            <p>Staf Bidang Kesekretariatan. Mengelola surat masuk/keluar serta pengarsipan dokumen organisasi secara sistematis;
+                menyusun laporan dan mendokumentasikan kegiatan secara terstruktur; berkoordinasi dengan pengurus untuk mendukung pelaksanaan kegiatan.</p>
         </div>
 
         <div class="print-section">
             <h2>Pengalaman Proyek</h2>
             <h3>Rancang Bangun Aplikasi Pengelolaan Kegiatan Harian Sekolah — SMP Negeri 2 Kota Solok (Tugas Akhir)</h3>
-            <p>Aplikasi web berbasis PWA untuk mendigitalkan absensi, piket, pelanggaran, dan portofolio siswa dengan
-                metode Waterfall, menggunakan Laravel dan MySQL.</p>
+            <p>Merancang dan mengembangkan aplikasi web berbasis PWA untuk mendigitalkan pengelolaan kegiatan harian sekolah
+                (absensi, piket, pelanggaran, portofolio siswa) dengan metode Waterfall. Menggunakan Laravel dan MySQL untuk
+                pengembangan frontend dan backend.</p>
         </div>
 
-        <div class="print-cols">
-            <div class="print-section">
-                <h2>Pendidikan</h2>
-                <h3>Universitas Negeri Padang | 2021 – 2026</h3>
-                <p>Pendidikan Teknik Informatika · IPK 3.54</p>
-                <h3>SMK Negeri 3 Batam | 2018 – 2021</h3>
-                <p>Teknik Komputer Jaringan</p>
-            </div>
-            <div class="print-section">
-                <h2>Organisasi</h2>
-                <h3>Himpunan Mahasiswa Departemen Teknik Elektronika</h3>
-                <p>Staf Bidang Kesekretariatan · Maret 2023 – Desember 2023</p>
-                <p>Mengelola surat dan arsip, menyusun laporan dan dokumentasi kegiatan, berkoordinasi dengan pengurus.</p>
-            </div>
+        <div class="print-section">
+            <h2>Pendidikan Formal</h2>
+            <h3>Universitas Negeri Padang | 2021 – 2026</h3>
+            <p>Pendidikan Teknik Informatika · IPK 3.54</p>
+            <h3>SMK Negeri 3 Batam | 2018 – 2021</h3>
+            <p>Teknik Komputer Jaringan</p>
         </div>
 
         <div class="print-section">
@@ -928,7 +832,7 @@
             <p>Teknis: dasar perangkat keras, software, dan OS, jaringan komputer, analisis kebutuhan server, pengembangan
                 web (Laravel, MySQL), pengelolaan dokumen digital, Microsoft Office, Google Workspace.</p>
             <p>Soft skills: teliti, komunikatif, disiplin, bertanggung jawab, mampu bekerja dalam tim maupun mandiri,
-                mengikuti SOP, mudah beradaptasi.</p>
+                mengikuti SOP, dan mudah beradaptasi.</p>
             <p>Bahasa: Indonesia (Fasih), Inggris (Dasar).</p>
         </div>
     </section>
@@ -955,43 +859,6 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
         }, { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Project documentation slider
-        const docSlider = document.querySelector('[data-doc-slider]');
-        if (docSlider) {
-            const track = docSlider.querySelector('.doc-track');
-            const slides = [...docSlider.querySelectorAll('.doc-slide')];
-            const dotsWrap = docSlider.querySelector('[data-doc-dots]');
-            const prev = docSlider.querySelector('[data-doc-prev]');
-            const next = docSlider.querySelector('[data-doc-next]');
-            let current = 0;
-
-            slides.forEach((_, index) => {
-                const dot = document.createElement('button');
-                dot.type = 'button';
-                dot.className = 'doc-dot' + (index === 0 ? ' active' : '');
-                dot.setAttribute('aria-label', `Buka dokumentasi ${index + 1}`);
-                dot.addEventListener('click', () => goTo(index));
-                dotsWrap.appendChild(dot);
-            });
-
-            function goTo(index) {
-                current = (index + slides.length) % slides.length;
-                track.style.transition = 'transform .45s cubic-bezier(.22,.61,.36,1)';
-                track.style.transform = `translateX(-${current * 100}%)`;
-                dotsWrap.querySelectorAll('.doc-dot').forEach((dot, i) => dot.classList.toggle('active', i === current));
-            }
-
-            prev.addEventListener('click', () => goTo(current - 1));
-            next.addEventListener('click', () => goTo(current + 1));
-
-            let startX = 0;
-            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-            track.addEventListener('touchend', e => {
-                const diff = e.changedTouches[0].clientX - startX;
-                if (Math.abs(diff) > 45) goTo(current + (diff < 0 ? 1 : -1));
-            }, { passive: true });
-        }
     </script>
 
 </body>
